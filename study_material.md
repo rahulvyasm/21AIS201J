@@ -590,3 +590,152 @@ Agents and rational agents provide the foundational framework for intelligent be
 
 ---
 
+**Question: Problem-Solving Approaches, Agents, and Search Strategies**
+
+**1. Introduction:**
+Problem-solving is a crucial aspect of Artificial Intelligence (AI). An intelligent agent must identify the right approach to navigate the environment and achieve its goals. This involves formulating problems, choosing the correct type of agent, and selecting an appropriate search strategy.
+
+**2. Problem-Solving Agents:**
+A problem-solving agent is a type of goal-based agent designed to achieve a specific objective. The agent goes through the following steps:
+
+1. **Goal Formulation:**  
+   Define the desired outcome based on the agent's current state and environment.
+   What is the goal state.
+   What are important characteristics of the goal state.
+   How does the agent know that it has reached the goal.
+   Are there several possible goal states.
+   Are they equal or are some more preferable.
+
+2. **Problem Formulation:**  
+   Outline the actions and states to be considered in reaching the goal.
+
+3. **Search:**  
+   Explore the possible sequences of actions to identify the path to the goal.
+
+4. **Execution:**  
+   Follow the solution path to reach the goal state.
+
+**Example:**  
+A GPS navigation system identifies a route from the current location to a destination.
+
+**3. Goal Formulation:**
+- The goal is formulated as a set of world states, in which the goal is satisfied
+- Reaching from initial state  goal state, Actions are required
+- Actions are the operators causing transitions between world states
+- Actions should be abstract enough at a certain degree, instead of very detailed 
+E.g., turn left VS turn left 30 degree, etc.
+
+
+**4. Problem Formulation:**
+A problem is defined by five key components:
+
+1. **Initial State:**  
+   The starting point of the agent.
+
+2. **Actions:**  
+   Set of moves or decisions available to the agent.
+
+3. **Transition Model (Successor Function):**  
+   Maps each state-action pair to a resulting state.
+
+4. **Goal Test:**  
+   Determines if the current state is the goal state.
+
+5. **Path Cost:**  
+   The cumulative cost of the actions taken. Denoted by g
+
+Together a problem is defined by 
+- Initial state
+- Actions
+- Successor function
+- Goal test
+- Path cost function 
+The solution of a problem is then a path from the initial state to a state satisfying the goal test 
+Optimal solution is the solution with lowest path cost among all solutions
+
+
+**4. Problem-Solving Approaches:**
+
+**4.1 Uninformed Search Strategies:**
+These strategies do not use additional information beyond the problem definition.
+
+1. **Breadth-First Search (BFS):**  
+   Explores nodes level by level. Suitable for finding the shortest path if all actions have the same cost.
+   - **Completeness:** Yes
+   - **Optimality:** Yes
+   - **Time Complexity:** O(b^d)
+   - **Space Complexity:** O(b^d)
+
+2. **Depth-First Search (DFS):**  
+   Explores nodes down the tree before exploring siblings.
+   - **Completeness:** No
+   - **Optimality:** No
+   - **Time Complexity:** O(b^m)
+   - **Space Complexity:** O(b*m)
+
+3. **Depth-Limited Search:**  
+   DFS with a maximum depth limit.
+   - **Completeness:** Yes, if depth limit is set appropriately
+   - **Optimality:** No
+
+4. **Iterative Deepening Search (IDS):**  
+   Combines the benefits of BFS and DFS by progressively increasing depth limits.
+   - **Completeness:** Yes
+   - **Optimality:** Yes
+   - **Time Complexity:** O(b^d)
+   - **Space Complexity:** O(b*d)
+
+5. **Uniform-Cost Search (UCS):**  
+   Expands nodes based on path cost.
+   - **Completeness:** Yes
+   - **Optimality:** Yes
+   - **Time Complexity:** O(b^(C*/ε))
+   - **Space Complexity:** O(b^(C*/ε))
+
+**4.2 Informed (Heuristic) Search Strategies:**
+These strategies use heuristics to guide the search process.
+
+1. **Greedy Best-First Search:**  
+   Expands the node that appears closest to the goal based on a heuristic.
+   - **Completeness:** No
+   - **Optimality:** No
+   - **Time Complexity:** O(b^m)
+   - **Space Complexity:** O(b^m)
+
+2. **A* Search:**  
+   Combines path cost and heuristic value (`f(n) = g(n) + h(n)`).
+   - **Completeness:** Yes
+   - **Optimality:** Yes
+   - **Time Complexity:** O(b^d)
+   - **Space Complexity:** O(b^d)
+
+**3. Local Search and Optimization Problems:**
+These approaches find a satisfactory solution using iterative improvement.
+
+1. **Hill Climbing:**  
+   Moves to the neighboring state with the highest value.
+   - **Limitation:** Susceptible to local maxima.
+
+2. **Simulated Annealing:**  
+   Allows downhill moves to escape local maxima.
+   - **Advantage:** Provides a probabilistic guarantee of reaching the global optimum.
+
+3. **Genetic Algorithms:**  
+   Evolves a population of candidate solutions using selection, crossover, and mutation.
+
+**5. Agent Types:**
+
+1. **Simple Reflex Agents:**  
+   Act based on current percepts using condition-action rules.
+
+2. **Model-Based Reflex Agents:**  
+   Maintain an internal state to handle partially observable environments.
+
+3. **Goal-Based Agents:**  
+   Use goal information to determine actions.
+
+4. **Utility-Based Agents:**  
+   Choose actions based on a utility function measuring desirability.
+
+5. **Learning Agents:**  
+   Improve performance over time through learning.
