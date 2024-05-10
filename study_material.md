@@ -153,7 +153,7 @@ Different approaches are used based on the nature of the problem:
 
 - **Informed Search** (Heuristic Search): Algorithms use heuristics (problem-specific knowledge) to guide search.
   - **Greedy Best-First Search**: Prioritizes nodes with the lowest heuristic value.
-  - **A* Search**: Combines path cost and heuristic value (`f(n) = g(n) + h(n)`).
+  - **A\* Search**: Combines path cost and heuristic value (`f(n) = g(n) + h(n)`).
 
 **Game Theory:**
 - **Minimax Algorithm**: Used for two-player games, it minimizes the opponent's maximum payoff.
