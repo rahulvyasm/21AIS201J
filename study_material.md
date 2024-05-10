@@ -835,3 +835,169 @@ Implementing an AI system for a delivery robot requires careful consideration of
 
 ---
 
+**Question: Demonstrate the informed search algorithm through the heuristic approach.**
+
+**Answer:**
+
+**1. Introduction to Informed Search:**
+Informed search algorithms use heuristics to guide the search process toward the goal. Unlike uninformed search strategies, which explore blindly, informed search algorithms estimate the cost of reaching the goal from a given state.
+
+**2. Heuristic Function:**
+A heuristic function (`h(n)`) estimates the cost of reaching the goal state from node `n`.
+
+- **Admissible Heuristic:** Never overestimates the actual cost, ensuring an optimal solution.
+- **Consistent Heuristic:** The estimated cost to the goal from node `n` is less than or equal to the estimated cost from any neighboring node plus the cost of reaching that neighbor.
+
+**3. A* Search Algorithm:**
+A* is a popular informed search algorithm that uses a combination of path cost (`g(n)`) and heuristic (`h(n)`) to select the next node to expand.
+
+- **Evaluation Function:**  
+  `f(n) = g(n) + h(n)`  
+  where:
+  - `g(n)`: Cost from the start node to `n`.
+  - `h(n)`: Estimated cost from `n` to the goal node.
+
+**4. A* Search Example:**
+
+**Problem:**  
+Find the shortest path from `S` (Start) to `G` (Goal) on the graph below using A*.
+
+```
+Graph:          h-values:
+  S ---- A ---- G     S: 7
+   \     |     /      A: 4
+    \    |    /       G: 0
+     \   B   /
+      \  |  /
+       \ C /
+        \|/
+```
+
+**Heuristic Values:**
+- `h(S) = 7`
+- `h(A) = 4`
+- `h(B) = 2`
+- `h(C) = 1`
+- `h(G) = 0`
+
+**Step-by-Step Solution:**
+1. **Initialize:**
+   - Start at `S`, `f(S) = g(S) + h(S) = 0 + 7 = 7`.
+   - Open List: `{S}`.
+   - Closed List: `{}`.
+
+2. **Expand `S`:**
+   - Successors: `A`, `B`, `C`.
+   - Calculate `f` for each:
+     - `f(A) = g(S) + cost(S, A) + h(A) = 0 + 1 + 4 = 5`
+     - `f(B) = g(S) + cost(S, B) + h(B) = 0 + 2 + 2 = 4`
+     - `f(C) = g(S) + cost(S, C) + h(C) = 0 + 3 + 1 = 4`
+   - Open List: `{B: 4, C: 4, A: 5}`.
+   - Closed List: `{S}`.
+
+3. **Expand `B`:**
+   - Successors: `A`, `C`, `G`.
+   - Calculate `f` for each:
+     - `f(A) = g(B) + cost(B, A) + h(A) = 2 + 1 + 4 = 7`
+     - `f(C) = g(B) + cost(B, C) + h(C) = 2 + 2 + 1 = 5`
+     - `f(G) = g(B) + cost(B, G) + h(G) = 2 + 3 + 0 = 5`
+   - Open List: `{C: 4, A: 5, G: 5}`.
+   - Closed List: `{S, B}`.
+
+4. **Expand `C`:**
+   - Successors: `A`, `G`.
+   - Calculate `f` for each:
+     - `f(A) = g(C) + cost(C, A) + h(A) = 3 + 1 + 4 = 8`
+     - `f(G) = g(C) + cost(C, G) + h(G) = 3 + 2 + 0 = 5`
+   - Open List: `{G: 5, A: 5}`.
+   - Closed List: `{S, B, C}`.
+
+5. **Expand `G`:**
+   - `G` is the goal node. Path found: `S -> B -> G`.
+
+**Conclusion:**
+The informed search algorithm (A*) successfully finds the optimal path `S -> B -> G` using the heuristic approach. The `h` values guide the search, making it more efficient than uninformed strategies.
+
+---
+
+## 10-Mark Question:
+**Question: Demonstrate the most efficient approach to solving the N queens' problem? Sketch an 8x8 board, then arrange 8 queens such that none of them attack one another.**
+
+**Answer:**
+
+### Solution Approach
+
+**1. Problem Statement:**
+The N-Queens problem requires placing N queens on an N×N chessboard such that no two queens attack each other. In the 8-Queens problem, the objective is to place 8 queens on an 8×8 board without any queen sharing the same row, column, or diagonal.
+
+**2. Constraints:**
+- **Row Constraint:** Each queen must be on a different row.
+- **Column Constraint:** Each queen must be on a different column.
+- **Diagonal Constraint:** No two queens should be on the same diagonal.
+
+**3. Efficient Approach (Backtracking Algorithm):**
+The backtracking algorithm solves the problem by incrementally building a solution:
+- Place a queen in a row, ensuring it doesn't conflict with already placed queens.
+- If no valid position is available in a row, backtrack to the previous row and move the queen.
+
+**4. Pseudo-Code:**
+```python
+def is_safe(board, row, col):
+    # Check left side rows and columns
+    for i in range(col):
+        if board[row][i] == 1:
+            return False
+    
+    # Check upper diagonal
+    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+        if board[i][j] == 1:
+            return False
+    
+    # Check lower diagonal
+    for i, j in zip(range(row, len(board), 1), range(col, -1, -1)):
+        if board[i][j] == 1:
+            return False
+    
+    return True
+
+def solve_n_queens(board, col):
+    if col >= len(board):
+        return True
+    
+    for i in range(len(board)):
+        if is_safe(board, i, col):
+            board[i][col] = 1
+            if solve_n_queens(board, col + 1):
+                return True
+            board[i][col] = 0
+    
+    return False
+
+def print_board(board):
+    for row in board:
+        print(" ".join("Q" if cell else "." for cell in row))
+
+# Initialize an 8x8 board
+board = [[0] * 8 for _ in range(8)]
+if solve_n_queens(board, 0):
+    print_board(board)
+else:
+    print("No solution exists")
+```
+
+**5. Solution Sketch:**
+
+The image provided shows an 8×8 chessboard with 8 queens arranged such that no two queens can attack each other.
+
+![8x8 Chessboard with 8 Queens](sandbox:/mnt/data/Sketch_of_an_8x8_chessboard_with_8_queens_arranged.png)
+
+**Explanation:**
+- **Row Constraint:** Each queen is placed on a unique row.
+- **Column Constraint:** Each queen is placed on a unique column.
+- **Diagonal Constraint:** No two queens share the same diagonal.
+
+**Conclusion:**
+The backtracking algorithm efficiently solves the N-Queens problem by leveraging constraints and systematically placing queens on the board. The solution ensures that all queens are arranged such that no two attack each other.
+
+---
+
